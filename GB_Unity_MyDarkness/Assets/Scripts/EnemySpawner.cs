@@ -1,25 +1,25 @@
 using System;
 using UnityEngine;
 
-// Максимов Дмитрий
+
 public class EnemySpawner : MonoBehaviour
 {
-	[SerializeField] GameObject _enemy;
+	[SerializeField] private GameObject _enemy;
 
-	[SerializeField] Transform[] _enemySpawnPos;
+	[SerializeField] private Transform[] _enemySpawnPos;
 
-	[SerializeField] GameObject soundFX;
+	[SerializeField] private GameObject soundFX;
 
-	void OnTriggerEnter(Collider collision) // Если коллайдер Player входит в триггер, появляются враги
+	void OnTriggerEnter(Collider collision)
 	{
-		if (collision.gameObject.tag == "Player")
+		if (collision.CompareTag("Player"))
 		{
 			soundFX.transform.GetChild(8).GetComponent<AudioSource>().Play();
-			Destroy(base.gameObject);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[0].position, this._enemySpawnPos[0].rotation);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[1].position, this._enemySpawnPos[1].rotation);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[2].position, this._enemySpawnPos[2].rotation);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[3].position, this._enemySpawnPos[3].rotation);
+			Destroy(gameObject);
+			Instantiate<GameObject>(_enemy, _enemySpawnPos[0].position, _enemySpawnPos[0].rotation);
+			Instantiate<GameObject>(_enemy, _enemySpawnPos[1].position, _enemySpawnPos[1].rotation);
+			Instantiate<GameObject>(_enemy, _enemySpawnPos[2].position, _enemySpawnPos[2].rotation);
+			Instantiate<GameObject>(_enemy, _enemySpawnPos[3].position, _enemySpawnPos[3].rotation);
 		}
 	}
 }

@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-// Максимов Дмитрий
+
 public class NextFloor : MonoBehaviour
 {
-	[SerializeField] Transform _tp;
+	[SerializeField] private Transform _tp;
 
 	public void Teleport(GameObject player)
 	{

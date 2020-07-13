@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-// Максимов Дмитрий
+
 public class DoorOpen : MonoBehaviour
 {
-	[SerializeField] Transform _tp; // Телепорт
+	[SerializeField] private Transform _tp;
 
-	public bool _isOpen; // Открыта ли дверь?
+	public bool _isOpen;
 
 	public void Unlock()
 	{

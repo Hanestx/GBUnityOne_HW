@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NextFloor : MonoBehaviour
 {
-	[SerializeField] Transform _tp;
+	[SerializeField] private Transform _tp;
 
 	public void Teleport(GameObject player)
 	{

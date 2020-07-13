@@ -3,9 +3,15 @@ using UnityEngine;
 
 public class DoorOpen : MonoBehaviour
 {
-	[SerializeField] Transform _tp; // Телепорт
+	#region Fields
 
 	public bool _isOpen; // Открыта ли дверь?
+	[SerializeField] private Transform _tp; // Телепорт
+
+	#endregion
+
+
+	#region UnityMethods
 
 	public void Unlock()
 	{
@@ -16,4 +22,6 @@ public class DoorOpen : MonoBehaviour
 	{
 		player.transform.position = _tp.transform.position;
 	}
+
+	#endregion
 }

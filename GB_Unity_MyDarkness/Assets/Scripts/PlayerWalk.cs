@@ -5,13 +5,21 @@ using UnityEngine;
 
 public class PlayerWalk : MonoBehaviour
 {
-	[SerializeField] float _speed; // Скорость персонажа
-	[SerializeField] Vector3 _direction;
-	[SerializeField] GameObject _flashLight; // Фонарик	
-	[SerializeField] GameObject soundFX; // Звуки
-	[SerializeField] GameObject textShow; // Уведомление
-	bool _keyOne, _keyTwo, _flashGet; // Проверка наличия у персонажа предметов
-	bool isFlash = true; // Фонарик работает?
+	#region Fields
+
+	[SerializeField] private float _speed;
+	[SerializeField] private Vector3 _direction;
+	[SerializeField] private GameObject _flashLight;
+	[SerializeField] private GameObject soundFX;
+	[SerializeField] private GameObject textShow; // Уведомление
+
+	private bool _keyOne, _keyTwo, _flashGet; // Проверка наличия у персонажа предметов
+	private bool isFlash = true;
+
+	#endregion
+
+
+	#region UnityMethods
 
 	void FixedUpdate()
 	{
@@ -26,21 +34,28 @@ public class PlayerWalk : MonoBehaviour
 		FlashOn(); //
 	}
 
-	void OnTriggerEnter(Collider collision)
+	#endregion
+
+
+	#region OnTrigger
+
+	private void OnTriggerEnter(Collider collision)
 	{
-		if (collision.gameObject.tag == "KeyOne") // Ключ 1
+		if (collision.CompareTag("KeyOne")) // Ключ 1
 		{
 			soundFX.transform.GetChild(0).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);
 			_keyOne = true;
 		}
-		if (collision.gameObject.tag == "KeyTwo") // Ключ 2
+
+		if (collision.CompareTag("KeyTwo")) // Ключ 2
 		{
 			soundFX.transform.GetChild(0).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);
 			_keyTwo = true;
 		}
-		if (collision.gameObject.tag == "DoorOne") // Дверь 1
+
+		if (collision.CompareTag("DoorOne")) // Дверь 1
 		{
 			if (collision.gameObject.GetComponent<DoorOpen>()._isOpen) // Если дверь открыта
 			{
@@ -53,12 +68,11 @@ public class PlayerWalk : MonoBehaviour
 				collision.gameObject.GetComponent<DoorOpen>().Teleport(gameObject); 
 				soundFX.transform.GetChild(5).GetComponent<AudioSource>().Play();
 			}
-			else
-			{
-				soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
-			}
+			else soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
+			
 		}
-		if (collision.gameObject.tag == "DoorTwo") // Дверь 2
+
+		if (collision.CompareTag("DoorTwo")) // Дверь 2
 		{
 			if (collision.gameObject.GetComponent<DoorOpen>()._isOpen)
 			{
@@ -66,28 +80,28 @@ public class PlayerWalk : MonoBehaviour
 			}
 			else if (_keyTwo)
 			{
-				collision.gameObject.GetComponent<DoorOpen>().Unlock();
-				// Переход на другой уровень
+				collision.gameObject.GetComponent<DoorOpen>().Unlock(); // Тут будет переход на другой уровень
 			}
-			else
-			{
-				soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
-			}
+			else soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
 		}
-		if (collision.gameObject.tag == "DoorSecret" || collision.gameObject.tag == "DoorClose") // Звуки для остальных дверей
+
+		if (collision.CompareTag("DoorSecret") || collision.CompareTag("DoorClose")) // Звуки для остальных дверей
 		{
 			soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
 		}
-		if (collision.gameObject.tag == "Next") // Переход между этажами
+
+		if (collision.CompareTag("Next")) // Переход между этажами
 		{
 			collision.gameObject.GetComponent<NextFloor>().Teleport(gameObject);
 		}
-		if (collision.gameObject.tag == "RadioOn") // Включение звуков радио
+
+		if (collision.CompareTag( "RadioOn")) // Включение звуков радио
 		{
 			soundFX.transform.GetChild(7).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);
 		}
-		if (collision.gameObject.tag == "Flash") // Подбор фонарика
+
+		if (collision.CompareTag("Flash")) // Подбор фонарика
 		{
 			soundFX.transform.GetChild(1).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);
@@ -95,6 +109,11 @@ public class PlayerWalk : MonoBehaviour
 			_flashLight.SetActive(true);
 		}
 	}
+
+	#endregion
+
+
+	#region Methods
 
 	void FlashOn() // Работа фонарика
 	{
@@ -130,4 +149,6 @@ public class PlayerWalk : MonoBehaviour
 		textShow.SetActive(false);
 		yield break;
 	}
+
+	#endregion
 }

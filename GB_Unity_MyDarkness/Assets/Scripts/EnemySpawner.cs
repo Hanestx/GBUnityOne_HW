@@ -3,22 +3,29 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-	[SerializeField] GameObject _enemy;
+	#region Fields
 
-	[SerializeField] Transform[] _enemySpawnPos;
+	[SerializeField] private GameObject enemy;
+	[SerializeField] private GameObject soundFX;
+	[SerializeField] private Transform[] enemySpawnPos;
 
-	[SerializeField] GameObject soundFX;
+	#endregion
+
+
+	#region OnTrigger
 
 	void OnTriggerEnter(Collider collision) // Если коллайдер Player входит в триггер, появляются враги
 	{
-		if (collision.gameObject.tag == "Player")
+		if (collision.CompareTag("Player"))
 		{
 			soundFX.transform.GetChild(8).GetComponent<AudioSource>().Play();
-			Destroy(base.gameObject);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[0].position, this._enemySpawnPos[0].rotation);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[1].position, this._enemySpawnPos[1].rotation);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[2].position, this._enemySpawnPos[2].rotation);
-			Instantiate<GameObject>(this._enemy, this._enemySpawnPos[3].position, this._enemySpawnPos[3].rotation);
+			Destroy(gameObject);
+			Instantiate<GameObject>(enemy, enemySpawnPos[0].position, enemySpawnPos[0].rotation);
+			Instantiate<GameObject>(enemy, enemySpawnPos[1].position, enemySpawnPos[1].rotation);
+			Instantiate<GameObject>(enemy, enemySpawnPos[2].position, enemySpawnPos[2].rotation);
+			Instantiate<GameObject>(enemy, enemySpawnPos[3].position, enemySpawnPos[3].rotation);
 		}
 	}
+
+	#endregion
 }

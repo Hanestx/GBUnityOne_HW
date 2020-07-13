@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class EnemySpawnGo : MonoBehaviour
 {
-	[SerializeField] float _speed;
+	[SerializeField] private float _speed;
+ 
+
+	#region UnityMethods
 
 	void Start()
 	{
@@ -12,6 +15,8 @@ public class EnemySpawnGo : MonoBehaviour
 
 	void Update() // Передвижение врагов вперёд
 	{
-		transform.Translate(Vector3.forward * Time.deltaTime * this._speed);
+		transform.Translate(Vector3.forward * Time.deltaTime * _speed);
 	}
+
+	#endregion
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+// Максимов Дмитрий
 public class PlayerWalk : MonoBehaviour
 {
 	[SerializeField] float _speed; // Скорость персонажа

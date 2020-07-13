@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// Максимов Дмитрий
 public class DoorOpen : MonoBehaviour
 {
 	[SerializeField] Transform _tp; // Телепорт

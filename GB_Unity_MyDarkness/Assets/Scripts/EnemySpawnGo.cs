@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// Максимов Дмитрий
 public class EnemySpawnGo : MonoBehaviour
 {
 	[SerializeField] float _speed;

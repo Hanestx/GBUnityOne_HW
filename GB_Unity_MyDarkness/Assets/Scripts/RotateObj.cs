@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// Максимов Дмитрий
 public class RotateObj : MonoBehaviour
 {
 	[SerializeField] float x, y, z;

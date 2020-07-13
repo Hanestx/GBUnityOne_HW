@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-// Максимов Дмитрий
 public class EnemySpawner : MonoBehaviour
 {
 	[SerializeField] GameObject _enemy;

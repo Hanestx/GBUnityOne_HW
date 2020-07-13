@@ -82,7 +82,10 @@ public class PlayerWalk : MonoBehaviour
 			{
 				collision.gameObject.GetComponent<DoorOpen>().Unlock(); // Тут будет переход на другой уровень
 			}
-			else soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
+			else 
+			{
+				soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
+			}
 		}
 
 		if (collision.CompareTag("DoorSecret") || collision.CompareTag("DoorClose")) // Звуки для остальных дверей

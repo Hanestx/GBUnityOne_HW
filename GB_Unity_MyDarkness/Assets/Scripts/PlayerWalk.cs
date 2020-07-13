@@ -3,10 +3,10 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-
+// Максимов Дмитрий
 public class PlayerWalk : MonoBehaviour
 {
-	[SerializeField] float _speed;
+	[SerializeField] float _speed; // Скорость персонажа
 	[SerializeField] Vector3 _direction;
 	[SerializeField] GameObject _flashLight; // Фонарик	
 	[SerializeField] GameObject soundFX; // Звуки
@@ -24,24 +24,24 @@ public class PlayerWalk : MonoBehaviour
 
 	void Update()
 	{
-		FlashOn();
+		FlashOn(); //
 	}
 
 	void OnTriggerEnter(Collider collision)
 	{
-		if (collision.CompareTag("KeyOne")) // Ключ 1
+		if (collision.gameObject.tag == "KeyOne") // Ключ 1
 		{
 			soundFX.transform.GetChild(0).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);
 			_keyOne = true;
 		}
-		if (collision.CompareTag("KeyTwo")) // Ключ 2
+		if (collision.gameObject.tag == "KeyTwo") // Ключ 2
 		{
 			soundFX.transform.GetChild(0).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);
 			_keyTwo = true;
 		}
-		if (collision.CompareTag("DoorOne")) // Дверь 1
+		if (collision.gameObject.tag == "DoorOne") // Дверь 1
 		{
 			if (collision.gameObject.GetComponent<DoorOpen>()._isOpen) // Если дверь открыта
 			{
@@ -59,7 +59,7 @@ public class PlayerWalk : MonoBehaviour
 				soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
 			}
 		}
-		if (collision.CompareTag("DoorTwo")) // Дверь 2
+		if (collision.gameObject.tag == "DoorTwo") // Дверь 2
 		{
 			if (collision.gameObject.GetComponent<DoorOpen>()._isOpen)
 			{
@@ -75,20 +75,20 @@ public class PlayerWalk : MonoBehaviour
 				soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
 			}
 		}
-		if (collision.CompareTag("DoorSecret") || collision.CompareTag("DoorClose")) // Звуки для остальных дверей
+		if (collision.gameObject.tag == "DoorSecret" || collision.gameObject.tag == "DoorClose") // Звуки для остальных дверей
 		{
 			soundFX.transform.GetChild(4).GetComponent<AudioSource>().Play();
 		}
-		if (collision.CompareTag("Next")) // Переход между этажами
+		if (collision.gameObject.tag == "Next") // Переход между этажами
 		{
 			collision.gameObject.GetComponent<NextFloor>().Teleport(gameObject);
 		}
-		if (collision.CompareTag("RadioOn")) // Включение звуков радио
+		if (collision.gameObject.tag == "RadioOn") // Включение звуков радио
 		{
 			soundFX.transform.GetChild(7).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);
 		}
-		if (collision.CompareTag("Flash")) // Подбор фонарика
+		if (collision.gameObject.tag == "Flash") // Подбор фонарика
 		{
 			soundFX.transform.GetChild(1).GetComponent<AudioSource>().Play();
 			UnityEngine.Object.Destroy(collision.gameObject);

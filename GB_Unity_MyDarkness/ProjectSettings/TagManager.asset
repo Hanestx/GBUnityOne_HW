@@ -16,6 +16,7 @@ TagManager:
   - DoorSecret
   - DoorClose
   - RadioOn
+  - Enemy
   layers:
   - Default
   - TransparentFX

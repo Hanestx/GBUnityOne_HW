@@ -9,7 +9,7 @@ namespace ApoProject
         [SerializeField] private float _speedBullet;
         [SerializeField] private float _lifetimeBullet;
 
-        private Enemy _enemy;
+        private EnemyTest _enemy;
         private Rigidbody _rigidbody;
         private int _damage = 50;
 
@@ -38,7 +38,7 @@ namespace ApoProject
 
         private void OnCollisionEnter(Collision collision)
         {
-            _enemy = collision.gameObject.GetComponent<Enemy>();
+            _enemy = collision.gameObject.GetComponent<EnemyTest>();
 
             if (_enemy)
             {

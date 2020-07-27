@@ -10,12 +10,23 @@ namespace ApoProject
         [SerializeField] private float _speedRotate;
         [SerializeField] private float _speedMove;
         [SerializeField] private float _jumpPower;
+        private float _curVertSpeed;
+        private float _distToHit;
 
+        bool _isGrounded;
+        int _hpPlayerText;
         private Rigidbody _rigidbody;
         private Animator _animator;
         private Vector3 _direction;
+        AudioSource _audio;
+        [SerializeField] AudioClip _walk;
+        PlayerHP _playerHP;
+
+
 
         #endregion
+
+
 
 
         #region UnityMethods
@@ -24,21 +35,36 @@ namespace ApoProject
         {
             _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
+            _playerHP = GetComponent<PlayerHP>();
+
+
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+
+            _distToHit = 0f;
+            _curVertSpeed = GetComponent<Rigidbody>().velocity.y;
+            Ray ray = new Ray(GetComponent<Collider>().bounds.center, -transform.up);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                _distToHit = Vector3.Distance(GetComponent<Collider>().bounds.center, hit.point);
+            }
+
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) && _playerHP.HpPlayerCurrent >= 1)
             {
                 _animator.SetBool("run", true);
 
-                if (Input.GetKeyDown(KeyCode.Space))
+
+                if (Input.GetKeyDown(KeyCode.Space) && _distToHit < 0.95f)
                 {
                     Jump();
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.Space))
+            else if (Input.GetKeyDown(KeyCode.Space) && _distToHit < 0.95f && _playerHP.HpPlayerCurrent >= 1)
             {
                 Jump();
             }
@@ -46,18 +72,27 @@ namespace ApoProject
             else
             {
                 _animator.SetBool("run", false);
+                _animator.SetBool("rifle", false);
                 _animator.SetBool("jump", false);
+
+                if (_playerHP.HpPlayerCurrent <= 0)
+                {
+                    _animator.SetBool("death", true);
+
+                    GetComponent<PlayerMovement>().enabled = false;
+                }
             }
         }
-
+    
 
         private void FixedUpdate()
         {
             _direction.x = Input.GetAxis("Horizontal") * _speedMove;
             _direction.z = Input.GetAxis("Vertical") * _speedMove;
             _direction.Normalize();
+            
 
-           
+
             var speed = ((Mathf.Abs(_direction.sqrMagnitude) > 0) ? _speedMove : 0);
             speed *= Time.deltaTime;
 
@@ -72,6 +107,7 @@ namespace ApoProject
 
 
         #region MyMethods
+
 
         private void Jump()
         {

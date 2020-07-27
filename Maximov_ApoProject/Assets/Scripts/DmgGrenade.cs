@@ -13,7 +13,7 @@ namespace ApoProject
         [SerializeField] private float _speedBullet;
 
         private Rigidbody _rigidbody;
-        private int _damage = 75;
+        private int _damage = 50;
         private bool _isTimer;
 
         #endregion
@@ -36,47 +36,28 @@ namespace ApoProject
 
         #region OnTrigger
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             _isTimer = true;
 
-            other.GetComponent<Rigidbody>().AddForce(Vector3.up * 500);
-            other.GetComponent<Rigidbody>().AddTorque(600f, 200f, 0f);
+            other.GetComponent<Rigidbody>().AddExplosionForce(200f, transform.position, 300f);
 
+            EnemyTest enemyTest = other.gameObject.GetComponent<EnemyTest>();
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-            if (enemy)
+            if (enemy) enemy.OnHit(_damage);
+
+            if (enemyTest)
             {
-               // Boom();
-                enemy.OnHit(_damage);
+                enemyTest.OnHit(_damage);
             }
 
-            //else Boom();
+
+
         }
 
         #endregion
 
 
-        #region MyMethods
-
-        //void Boom()
-        //{
-        //    if (!_isTimer)
-        //    {
-        //        _audio.PlayOneShot(_boomSFX);
-        //        _particleBoom.Play();
-
-        //        _isTimer = true;
-
-        //        Invoke("Timer", 3);
-        //    }
-        //}
-
-        //void Timer()
-        //{
-        //    _isTimer = false;
-        //}
-
-        #endregion
     }
 }

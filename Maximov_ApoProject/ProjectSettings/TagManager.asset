@@ -11,6 +11,11 @@ TagManager:
   - Mine
   - Turret
   - Grenade
+  - AK-47
+  - Health
+  - Ammo
+  - AI
+  - KillCount
   layers:
   - Default
   - TransparentFX
@@ -20,7 +25,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
